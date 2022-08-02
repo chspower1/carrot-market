@@ -3,7 +3,7 @@ import Layout from "./../components/Layout";
 
 const Home: NextPage = () => {
     return (
-        <Layout title={"home"}>
+        <Layout title="home" hasTabBar canGoBack>
             <div className="relative">
                 {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
                     <div
