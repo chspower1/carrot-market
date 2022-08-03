@@ -3,3 +3,73 @@ componenet 요소
 -profile
 -badge
 -textarea
+
+prisma 사용법
+-prisma extension 설치
+-npx prisma
+
+    사용목적
+        1) model들을 database에 push하고 SQL migration을 자동으로 처리하기 위함
+        2) database와 상호작용하기 위해 client를 생성하고 그 client에 자동완성으로 타입들을 추가할 것
+
+prisma/client 사용법
+-npm i @prisma/client(플리즈마 클라이언트 설치)
+-libs폴더에 client.ts 파일 생성, PrismaClient import하고 export하기
+-prisma client는 브라우저에서 실행되면 안되고 실행할 수도 없음
+
+scoop & planetscale 설치법
+1.powershell 관리자 모드 실행
+2.
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+3.
+irm get.scoop.sh | iex
+4.
+scoop bucket add pscale https://github.com/planetscale/scoop-bucket.git
+5.
+scoop install pscale mysql
+6.(확인)
+터미널창에 pscale 쳐보기
+
+planetScale 사용법
+(planetScale이란? MySQL과 호환되는 serverless 데이터베이스 플랫폼,vitess를 사용함)
+
+1.
+pscale auth login
+2.
+pscale connect database_name (connect상태로 둬야할 것)
+3.
+.env 안 DATABASE_URL에 "mysql://127.0.0.1:3306/carrot-market" 넣기
+
+
+데이터셋업 복습
+STEP1
+1.schema.prisma 파일 생성
+    프리즈마 설정을 하고 데이터의 형식 정의
+
+2.PlanetScale 연결
+    secure tunnel을 이용해 PlanetScale연결
+    1)pscale connect database_name
+    => 127.0.0.1:3306형식의 secure tunnel 제공
+    2).env파일의 DATABASE_URL에 넣어주기
+    ex)"mysql://127.0.0.1:3306/carrot-market"
+
+
+3.planetScale에 데이터 형태 보내주기
+    npx prisma db push
+    =>prisma가 파일을 확인해 PlanetScale에 내용을 전달해줌
+
+STEP2
+1.prisma-studio
+    :app에있는 data를 관리자 패널로 확인할 수 있게 도와줌(data 추가,수정도 가능)
+
+2.Prisma Client
+    -코드로 데이터베이스에 접근할 수 있는 클라이언트 생성해줌
+    (/libs/client.ts 생성 후 npx prisma generate 명령어를 입력하면 Prisma Client를 생성해줌)
+    -schema에 작성된 데이터 정보를 바탕으로 자동완성,미리보기 기능 등 사용가능
+    -프론트엔드에서는 사용 불가, 사용자가 api에게 요청하면 api가 데이터베이스에 직접 전달
+
+3.NextJS는 자체적으로 API 라우트를 만들수 있음!
+    -pages/api폴더를 만들기만 하면 기능 사용 가능!
+    -api폴더에 어떤 파일을 추가하던지 api url이 됨
+    -파일 생성 후 function을 export하면 사용 가능, 이 function은 req,res객체를 가짐. 이 객체들은 next에서 제공하는 NextApiRequest,NextApiResponse로 타입 지정.
+    -CRUD 기능 수행 후 res.json({})형태로 전달 가능
