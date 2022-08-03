@@ -20,7 +20,7 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
             </div>
             <div className={cls("pt-16", hasTabBar ? "pb-16" : "")}>{children}</div>
             {hasTabBar ? (
-                <nav className="fixed w-full mx-w-lg bottom-0 h-16 bg-white flex justify-around items-center">
+                <nav className="fixed w-full mx-w-lg bottom-0 right-0 h-16 bg-white flex justify-around items-center">
                     <Link href="/">
                         <a>
                             <div className="flex flex-col items-center text-gray-600">
