@@ -7,6 +7,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             name: "haneul",
         },
     });
-
     res.json(await client.user.findMany());
 }
