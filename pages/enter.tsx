@@ -60,7 +60,7 @@ const Enter: NextPage = () => {
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(onvalid)} className="flex flex-col mt-8 space-y-4">
-                    {method === "email" ? (
+                    {method === "email" && (
                         <Input
                             register={register("email")}
                             name="email"
@@ -68,8 +68,8 @@ const Enter: NextPage = () => {
                             type="email"
                             required
                         />
-                    ) : null}
-                    {method === "phone" ? (
+                    )}
+                    {method === "phone" && (
                         <Input
                             register={register("phone")}
                             name="phone"
@@ -78,11 +78,13 @@ const Enter: NextPage = () => {
                             kind="phone"
                             required
                         />
-                    ) : null}
-                    {method === "email" ? <Button text={"Get login link"} /> : null}
-                    {method === "phone" ? (
+                    )}
+                    {method === "email" && (
+                        <Button text={!loading ? "Get login link" : "Lodding.."} />
+                    )}
+                    {method === "phone" && (
                         <Button text={!loading ? "Get one-time password" : "Lodding.."} />
-                    ) : null}
+                    )}
                 </form>
 
                 <div className="mt-8">
